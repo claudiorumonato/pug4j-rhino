@@ -286,13 +286,13 @@ book["size"] // works
 You can read more about this in the [JEXL documentation](https://commons.apache.org/proper/commons-jexl/reference/syntax.html#Language_Elements).
 
 <a name="graalvm"></a>
-### GraalVM Expressionhandler (NEW! since 2.0.0)
-If you want to use pure javascript expression handling, you can try out the new GraalJS Expression Handler. It supports native javascript expressions but is slower than the Jexl Expression Handler. You can configure it like this:
+### RhinoExpressionHandler (NEW! by CLD)
+If you want to use pure javascript expression handling, you can try out the new RhinoExpressionHandler. It supports native javascript expressions. You can configure it like this:
 
 ```java
 PugConfiguration config = new PugConfiguration();
 
-config.setExpressionHandler(new GraalJsExpressionHandler())
+config.setExpressionHandler(new RhinoExpressionHandler())
 ```
 
 
