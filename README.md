@@ -5,7 +5,7 @@ pug4j's intention is to be able to process pug templates in Java without the nee
 
 pug4j was formerly known as jade4j. Because of the naming change of the javascript version and the alignment to the featureset of pug.js (https://pugjs.org/) we decided to switch the name.
 
-With the addition of a new [GraalJsExpressionHandler](#graalvm) your code can be more compatible to the js version than before. 
+With the addition of a new [RhinoExpressionHandler] your code can be more compatible to the js version than before without the need to use the huge GraalVM. 
 ## Contents
 
 - [Example](#example)
