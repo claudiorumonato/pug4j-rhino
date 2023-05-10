@@ -2,7 +2,7 @@ package de.neuland.pug4j.lexer;
 
 import de.neuland.pug4j.TestFileHelper;
 import de.neuland.pug4j.exceptions.PugLexerException;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.template.FileTemplateLoader;
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class PugLexerExceptionTest {
         FileTemplateLoader templateLoader = new FileTemplateLoader(
                 TestFileHelper.getLexerResourcePath("error-checks"), "pug");
 
-        Lexer lexer = new Lexer(template, templateLoader, new JexlExpressionHandler());
+        Lexer lexer = new Lexer(template, templateLoader, new RhinoExpressionHandler());
         lexer.getTokens();
     }
 }

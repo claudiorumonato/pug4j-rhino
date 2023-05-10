@@ -87,6 +87,7 @@ public class PugTemplate {
 		case XML:
 			xml = true;
 			break;
+		default:
 		}
 	}
 

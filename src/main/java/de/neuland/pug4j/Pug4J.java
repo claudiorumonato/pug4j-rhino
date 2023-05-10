@@ -3,13 +3,11 @@ package de.neuland.pug4j;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.parser.node.Node;
@@ -90,7 +88,7 @@ public class Pug4J {
 		String prefix = FilenameUtils.getFullPath(filename);
 		String filePath = FilenameUtils.getName(filename);
 		FileTemplateLoader loader = new FileTemplateLoader(prefix,Charset.forName("UTF-8"));
-		return createTemplate(filePath, loader, new JexlExpressionHandler());
+		return createTemplate(filePath, loader, new RhinoExpressionHandler());
 	}
 	public static PugTemplate getTemplate(String filename, String extension) throws IOException {
 		if(filename==null){
@@ -99,15 +97,16 @@ public class Pug4J {
 		String prefix = FilenameUtils.getFullPath(filename);
 		String filePath = FilenameUtils.getName(filename);
 		FileTemplateLoader loader = new FileTemplateLoader(prefix,Charset.forName("UTF-8"), extension);
-		return createTemplate(filePath, loader, new JexlExpressionHandler());
+		return createTemplate(filePath, loader, new RhinoExpressionHandler());
 	}
 
 	private static PugTemplate getTemplate(Reader reader, String name) throws IOException {
-		return createTemplate(name, new ReaderTemplateLoader(reader, name), new JexlExpressionHandler());
+		return createTemplate(name, new ReaderTemplateLoader(reader, name), new RhinoExpressionHandler());
 	}
-	private static PugTemplate getTemplate(Reader reader, String name, String extension) throws IOException {
-		return createTemplate(name, new ReaderTemplateLoader(reader, name,extension), new JexlExpressionHandler());
-	}
+	
+	/*private static PugTemplate getTemplate(Reader reader, String name, String extension) throws IOException {
+		return createTemplate(name, new ReaderTemplateLoader(reader, name, extension), new RhinoExpressionHandler());
+	}*/
 
 	private static PugTemplate createTemplate(String filename, TemplateLoader loader, ExpressionHandler expressionHandler) throws IOException {
 		Parser parser = new Parser(filename, loader, expressionHandler);

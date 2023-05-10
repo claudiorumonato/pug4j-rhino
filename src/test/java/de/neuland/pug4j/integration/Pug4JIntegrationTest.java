@@ -3,7 +3,7 @@ package de.neuland.pug4j.integration;
 import de.neuland.pug4j.ParameterizedTestCaseHelper;
 import de.neuland.pug4j.PugConfiguration;
 import de.neuland.pug4j.TestFileHelper;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -33,7 +33,7 @@ public class Pug4JIntegrationTest {
         String fileTemplateLoaderPath = TestFileHelper.getPug4JTestsResourcePath("");
         String basePath = "cases";
         String extension = "pug";
-        JexlExpressionHandler expressionHandler = new JexlExpressionHandler();
+        RhinoExpressionHandler expressionHandler = new RhinoExpressionHandler();
         PugConfiguration pug = new PugConfiguration();
         pug.setExpressionHandler(expressionHandler);
         ParameterizedTestCaseHelper testHelper = new ParameterizedTestCaseHelper(fileTemplateLoaderPath,basePath,extension,expressionHandler);

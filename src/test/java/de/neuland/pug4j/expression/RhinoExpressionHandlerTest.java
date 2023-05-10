@@ -16,54 +16,54 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class JexlExpressionHandlerTest {
+public class RhinoExpressionHandlerTest {
 
-    private JexlExpressionHandler jexlExpressionHandler;
+    private RhinoExpressionHandler jsExpressionHandler;
     private PugModel pugModel;
 
     @Before
     public void setUp() throws Exception {
-        jexlExpressionHandler = new JexlExpressionHandler();
+        jsExpressionHandler = new RhinoExpressionHandler();
         pugModel = new PugModel(new HashMap<String, Object>());
     }
 
     @Test
     public void evaluateBooleanExpression() throws Exception {
 
-        Boolean aBoolean = jexlExpressionHandler.evaluateBooleanExpression("1<5", pugModel);
+        Boolean aBoolean = jsExpressionHandler.evaluateBooleanExpression("1<5", pugModel);
         assertTrue(aBoolean);
     }
 
     @Test
     public void evaluateExpression() throws Exception {
-        Object object = jexlExpressionHandler.evaluateExpression("1<5", pugModel);
+        Object object = jsExpressionHandler.evaluateExpression("1<5", pugModel);
         assertTrue((Boolean) object);
     }
 
     @Test
     public void testArrayList() throws ExpressionException {
-        jexlExpressionHandler.evaluateExpression("var list = [1,2,3]", pugModel);
+        jsExpressionHandler.evaluateExpression("var list = [1,2,3]", pugModel);
         int[] list = (int[]) pugModel.get("list");
         assertEquals(1,list[0]);
     }
 
     @Test
     public void testNull() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var list;", pugModel);
+        jsExpressionHandler.evaluateExpression("var list;", pugModel);
         Object list = pugModel.get("list");
         assertNull(list);
     }
 
     @Test
     public void testMap() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var map = {'foo':'bar'}", pugModel);
+        jsExpressionHandler.evaluateExpression("var map = {'foo':'bar'}", pugModel);
         Map map = (Map) pugModel.get("map");
         assertEquals("bar",map.get("foo"));
 
     }
     @Test
     public void testMapMulti() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var map = {" +
+        jsExpressionHandler.evaluateExpression("var map = {" +
                 "  'text': 'text'," +
                 "  'image': 'image.jpg'," +
                 "  'button' : {" +
@@ -77,7 +77,7 @@ public class JexlExpressionHandlerTest {
     }
     @Test
     public void testReturn() throws ExpressionException  {
-        Object value = jexlExpressionHandler.evaluateExpression("{" +
+        Object value = jsExpressionHandler.evaluateExpression("{" +
                 "  'text': 'text'," +
                 "  'image': 'image.jpg'," +
                 "  'button' : {" +
@@ -92,7 +92,7 @@ public class JexlExpressionHandlerTest {
 
     @Test
     public void testInt() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var count = 5", pugModel);
+        jsExpressionHandler.evaluateExpression("var count = 5", pugModel);
         int count = (int) pugModel.get("count");
         assertEquals(5,count);
 
@@ -100,38 +100,38 @@ public class JexlExpressionHandlerTest {
     @Test
     public void testDoubleModel() throws ExpressionException  {
         pugModel.put("one",1.0);
-        jexlExpressionHandler.evaluateExpression("var count = one", pugModel);
+        jsExpressionHandler.evaluateExpression("var count = one", pugModel);
         Object count = pugModel.get("count");
         assertEquals("1.0",count.toString());
     }
     @Test
     public void testDouble() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var price = 5.50", pugModel);
+        jsExpressionHandler.evaluateExpression("var price = 5.50", pugModel);
         Double price = (Double) pugModel.get("price");
         assertEquals(5.5,price,0.0001);
         assertEquals("5.5",price.toString());
     }
     @Test
     public void testDouble2() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var price = 5.00", pugModel);
+        jsExpressionHandler.evaluateExpression("var price = 5.00", pugModel);
         Object price = (Object) pugModel.get("price");
         assertEquals("5.0",price.toString());
     }
     @Test
     public void testString() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var moin = 'Hallo Welt!'", pugModel);
+        jsExpressionHandler.evaluateExpression("var moin = 'Hallo Welt!'", pugModel);
         String moin = (String) pugModel.get("moin");
         assertEquals("Hallo Welt!",moin);
     }
     @Test
     public void testBoolean() throws ExpressionException  {
-        jexlExpressionHandler.evaluateExpression("var what = true", pugModel);
+        jsExpressionHandler.evaluateExpression("var what = true", pugModel);
         Boolean what = (Boolean) pugModel.get("what");
         assertTrue(what);
     }
     @Test
     public void testArray() throws ExpressionException  {
-        Object[] o = (Object[])jexlExpressionHandler.evaluateExpression("([])", pugModel);
+        Object[] o = (Object[])jsExpressionHandler.evaluateExpression("([])", pugModel);
         assertTrue(o.length==0);
     }
     @Test
@@ -142,7 +142,7 @@ public class JexlExpressionHandlerTest {
         images.add("Image 2");
         product.put("images", images);
         pugModel.put("product", product);
-        Object o = jexlExpressionHandler.evaluateExpression("(product.images[0])", pugModel);
+        Object o = jsExpressionHandler.evaluateExpression("(product.images[0])", pugModel);
 
         Object what = pugModel.get("x");
     }
@@ -153,7 +153,7 @@ public class JexlExpressionHandlerTest {
         pugModel.put("pug4j__writer", writer);
         pugModel.put("pug4j__template", new PugTemplate());
         pugModel.put("pug4j__model", new PugModel(new HashMap<>()));
-        Object o = jexlExpressionHandler.evaluateExpression("pug4j__block.execute(pug4j__writer,pug4j__model,pug4j__template)", pugModel);
+        Object o = jsExpressionHandler.evaluateExpression("pug4j__block.execute(pug4j__writer,pug4j__model,pug4j__template)", pugModel);
 
         Object what = pugModel.get("x");
     }

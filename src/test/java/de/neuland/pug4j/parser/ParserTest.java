@@ -3,7 +3,7 @@ package de.neuland.pug4j.parser;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import org.junit.Assert;
 
 import de.neuland.pug4j.TestFileHelper;
@@ -23,7 +23,7 @@ public class ParserTest {
 		try {
 			FileTemplateLoader loader = new FileTemplateLoader(
 					TestFileHelper.getParserResourcePath(""), extension);
-			parser = new Parser(fileName, loader, new JexlExpressionHandler());
+			parser = new Parser(fileName, loader, new RhinoExpressionHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
 			Assert.fail("template " + fileName + " was not found");

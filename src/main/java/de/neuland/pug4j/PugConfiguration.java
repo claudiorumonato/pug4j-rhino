@@ -5,7 +5,7 @@ import de.neuland.pug4j.Pug4J.Mode;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.exceptions.PugException;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.filter.CDATAFilter;
 import de.neuland.pug4j.filter.CssFilter;
 import de.neuland.pug4j.filter.Filter;
@@ -36,7 +36,7 @@ public class PugConfiguration {
     private Map<String, Filter> filters = new HashMap<String, Filter>();
     private Map<String, Object> sharedVariables = new HashMap<String, Object>();
     private TemplateLoader templateLoader = new FileTemplateLoader();
-    private ExpressionHandler expressionHandler = new JexlExpressionHandler();
+    private ExpressionHandler expressionHandler = new RhinoExpressionHandler();
     //private ExpressionHandler expressionHandler = new GraalJsExpressionHandler();
     protected static final int MAX_ENTRIES = 1000;
 

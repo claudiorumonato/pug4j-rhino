@@ -28,7 +28,6 @@ public class Scanner {
         try {
             BufferedReader in = new BufferedReader(reader);
             StringBuilder sb = new StringBuilder();
-            String s = "";
             int data = in.read();
             while(data != -1){
                 char theChar = (char) data;

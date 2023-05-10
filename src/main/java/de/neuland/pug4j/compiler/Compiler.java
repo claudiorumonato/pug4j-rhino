@@ -4,7 +4,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import de.neuland.pug4j.exceptions.PugCompilerException;
-import de.neuland.pug4j.expression.ExpressionHandler;
 import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.PugTemplate;

@@ -2,7 +2,7 @@ package de.neuland.pug4j.lexer;
 
 import com.google.gson.Gson;
 import de.neuland.pug4j.TestFileHelper;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.lexer.token.*;
 import de.neuland.pug4j.template.FileTemplateLoader;
 import org.apache.commons.io.FileUtils;
@@ -91,7 +91,7 @@ public class OriginalLexer_0_0_8_Test {
     @Test
     public void shouldLexJadeToTokens() throws IOException, URISyntaxException {
         FileTemplateLoader loader1 = new FileTemplateLoader(TestFileHelper.getLexer_0_0_8_ResourcePath("cases/"));
-        Lexer lexer1 = new Lexer(file, loader1, new JexlExpressionHandler());
+        Lexer lexer1 = new Lexer(file, loader1, new RhinoExpressionHandler());
         LinkedList<Token> tokens = lexer1.getTokens();
         String[] expected = readFile(file.replace(".jade", ".expected.json")).replaceAll("\r", "").split("\\n");
         ArrayList<String> actual = new ArrayList<String>();

@@ -4,7 +4,7 @@ import au.com.origin.snapshots.Expect;
 import au.com.origin.snapshots.junit4.SnapshotClassRule;
 import au.com.origin.snapshots.junit4.SnapshotRule;
 import de.neuland.pug4j.TestFileHelper;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.lexer.token.Token;
 import de.neuland.pug4j.template.FileTemplateLoader;
 import org.apache.commons.io.FileUtils;
@@ -70,7 +70,7 @@ public class PugLexerTest {
         String filename = file;
         String basePath = TestFileHelper.getLexerResourcePath("/cases");
         FileTemplateLoader templateLoader = new FileTemplateLoader(basePath,  "pug");
-        Lexer lexer = new Lexer(filename, templateLoader, new JexlExpressionHandler());
+        Lexer lexer = new Lexer(filename, templateLoader, new RhinoExpressionHandler());
         LinkedList<Token> tokens = lexer.getTokens();
 
         expect.serializer("json").scenario(filename).toMatchSnapshot(tokens);

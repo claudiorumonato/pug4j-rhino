@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class CompilerTagErrorTest {
         Parser parser = null;
         FileTemplateLoader loader = new FileTemplateLoader(TestFileHelper.getCompilerErrorsResourcePath(""),
                     "jade");
-        parser = new Parser(testName, loader, new JexlExpressionHandler());
+        parser = new Parser(testName, loader, new RhinoExpressionHandler());
         Node root = parser.parse();
         Compiler compiler = new Compiler(root);
         compiler.setPrettyPrint(pretty);

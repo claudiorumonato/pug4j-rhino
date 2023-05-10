@@ -4,7 +4,7 @@ import de.neuland.pug4j.ParameterizedTestCaseHelper;
 import de.neuland.pug4j.PugConfiguration;
 import de.neuland.pug4j.TestFileHelper;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.expression.JexlExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -52,7 +52,7 @@ public class OriginalPug2Test {
         String basePath = "cases";
         String fileTemplateLoaderPath = TestFileHelper.getOriginalPug2ResourcePath("");
         String extension = "pug";
-        ExpressionHandler expressionHandler = new JexlExpressionHandler();
+        ExpressionHandler expressionHandler = new RhinoExpressionHandler();
         ParameterizedTestCaseHelper testHelper = new ParameterizedTestCaseHelper(fileTemplateLoaderPath,basePath,extension,expressionHandler);
         PugConfiguration pugConfiguration = testHelper.getPugConfiguration();
 
