@@ -1,21 +1,20 @@
 package de.neuland.pug4j.parser.node;
 
-import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
+import org.cld.pug4j.RhinoPugModel;
 
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
+
+import static org.cld.pug4j.RhinoPugModel.PUG4J_MODEL_PREFIX;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import static de.neuland.pug4j.model.PugModel.PUG4J_MODEL_PREFIX;
 
 public class ExpressionNode extends Node {
 
@@ -56,7 +55,7 @@ public class ExpressionNode extends Node {
 	}
 
 	@Override
-	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
 
 			String value = getValue();
 			if (hasBlock() || value.trim().startsWith("}")) {

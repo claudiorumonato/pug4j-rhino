@@ -2,10 +2,11 @@ package de.neuland.pug4j.parser.node;
 
 import java.util.*;
 
+import org.cld.pug4j.RhinoPugModel;
+
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 import de.neuland.pug4j.util.ArgumentSplitter;
 
@@ -16,7 +17,7 @@ public class CallNode extends AttrsNode {
 	private boolean dynamicMixins = false;
 
 	@Override
-	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
 		boolean dynamic = getName().charAt(0)=='#';
   		if (dynamic)
 			this.dynamicMixins = true;
@@ -90,7 +91,7 @@ public class CallNode extends AttrsNode {
 		return result;
 	}
 
-	private void writeVariables(PugModel model, MixinNode mixin, PugTemplate template) {
+	private void writeVariables(RhinoPugModel model, MixinNode mixin, PugTemplate template) {
 		List<String> names = mixin.getArguments();
 		List<String> values = arguments;
 		if (names == null) {
@@ -134,7 +135,7 @@ public class CallNode extends AttrsNode {
 		}
 	}
 
-	private void writeAttributes(PugModel model, MixinNode mixin, PugTemplate template) {
+	private void writeAttributes(RhinoPugModel model, MixinNode mixin, PugTemplate template) {
 		LinkedList<Attr> newAttributes = new LinkedList<Attr>(attributes);
 		if (attributeBlocks.size()>0) {
 			//Todo: AttributesBlock needs to be evaluated

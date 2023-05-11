@@ -2,11 +2,11 @@ package de.neuland.pug4j.lexer;
 
 import com.google.gson.Gson;
 import de.neuland.pug4j.TestFileHelper;
-import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.lexer.token.*;
 import de.neuland.pug4j.template.FileTemplateLoader;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.cld.pug4j.RhinoExpressionHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

@@ -1262,7 +1262,8 @@ public class Lexer {
     }
 
     private AttributeValueResponse attributeValue(String str){
-        Pattern quoteRe = PATTERN_QUOTE;
+        @SuppressWarnings("unused")
+		Pattern quoteRe = PATTERN_QUOTE;
         String val = "";
         int i;
         int x;
@@ -1521,7 +1522,7 @@ public class Lexer {
 
             if (indents > 0 && (this.indentStack.size() == 0 || indents > this.indentStack.get(0))) {
                 pushToken(tokEnd(tok(new StartPipelessText())));
-                LinkedList<String> tokenList = new LinkedList();
+                LinkedList<String> tokenList = new LinkedList<>();
                 ArrayList<Boolean> token_indent = new ArrayList<>();
                 boolean isMatch;
 
@@ -1608,7 +1609,8 @@ public class Lexer {
         throw error("UNEXPECTED_TEXT","unexpected text \"" + StringUtils.substring(scanner.getInput(),0,5) + "\"");
     }
 
-    private String ensurePugExtension(String templateName) {
+    @SuppressWarnings("unused")
+	private String ensurePugExtension(String templateName) {
         if ( StringUtils.isBlank(FilenameUtils.getExtension(templateName))) {
             return templateName + "." + templateLoader.getExtension();
         }

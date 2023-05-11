@@ -3,7 +3,7 @@ package de.neuland.pug4j.parser;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import de.neuland.pug4j.expression.RhinoExpressionHandler;
+import org.cld.pug4j.RhinoExpressionHandler;
 import org.junit.Assert;
 
 import de.neuland.pug4j.TestFileHelper;

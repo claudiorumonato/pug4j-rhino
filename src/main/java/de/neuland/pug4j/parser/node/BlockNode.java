@@ -1,10 +1,11 @@
 package de.neuland.pug4j.parser.node;
 
+import org.cld.pug4j.RhinoPugModel;
+
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.template.PugTemplate;
 
@@ -15,7 +16,7 @@ public class BlockNode extends Node {
 	private Parser parser;
 	private boolean namedBlock;
 
-	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
 
 		// Pretty print multi-line text
 		if (writer.isPp() && getNodes().size() > 1 && !writer.isEscape() && isTextNode(getNodes().get(0)) && isTextNode(getNodes().get(1)))

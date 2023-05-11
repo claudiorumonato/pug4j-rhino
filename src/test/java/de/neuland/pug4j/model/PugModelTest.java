@@ -5,19 +5,20 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cld.pug4j.RhinoPugModel;
 import org.junit.Before;
 import org.junit.Test;
 
 public class PugModelTest {
 
-	private PugModel model;
+	private RhinoPugModel model;
 
 	@Before
 	public void setup() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("hello", "world");
 		map.put("foo", "bar");
-		model = new PugModel(map);
+		model = new RhinoPugModel(map);
 	}
 
 	@Test
@@ -42,7 +43,7 @@ public class PugModelTest {
 		Map<String, Object> defaults = new HashMap<String, Object>();
 		defaults.put("hello", "world");
 
-		model = new PugModel(defaults);
+		model = new RhinoPugModel(defaults);
 		model.put("new", true);
 		
 		assertFalse(defaults.containsKey("new"));

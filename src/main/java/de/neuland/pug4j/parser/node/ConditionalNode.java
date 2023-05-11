@@ -3,11 +3,12 @@ package de.neuland.pug4j.parser.node;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.cld.pug4j.RhinoPugModel;
+
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 
 public class ConditionalNode extends Node {
@@ -15,7 +16,7 @@ public class ConditionalNode extends Node {
 	private List<IfConditionNode> conditions = new LinkedList<IfConditionNode>();
 
 	@Override
-	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
 		for (IfConditionNode conditionNode : this.conditions) {
 			try {
 				if (conditionNode.isDefault() || checkCondition(model, conditionNode.getValue(),template.getExpressionHandler()) ^ conditionNode.isInverse()) {
@@ -28,7 +29,7 @@ public class ConditionalNode extends Node {
 		}
 	}
 
-	private boolean checkCondition(PugModel model, String condition, ExpressionHandler expressionHandler) throws ExpressionException {
+	private boolean checkCondition(RhinoPugModel model, String condition, ExpressionHandler expressionHandler) throws ExpressionException {
 		Boolean value = expressionHandler.evaluateBooleanExpression(condition, model);
 		return (value == null) ? false : value;
 	}

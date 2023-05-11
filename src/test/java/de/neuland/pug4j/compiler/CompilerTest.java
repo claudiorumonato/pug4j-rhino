@@ -19,6 +19,7 @@ import de.neuland.pug4j.filter.CssFilter;
 import de.neuland.pug4j.filter.JsFilter;
 import de.neuland.pug4j.template.PugTemplate;
 import org.apache.commons.io.FileUtils;
+import org.cld.pug4j.RhinoPugModel;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -31,7 +32,6 @@ import de.neuland.pug4j.filter.MarkdownFilter;
 import de.neuland.pug4j.filter.PlainFilter;
 import de.neuland.pug4j.helper.beans.Level2TestBean;
 import de.neuland.pug4j.helper.beans.TestBean;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.FileTemplateLoader;
@@ -178,7 +178,7 @@ public class CompilerTest {
             moreBeans.add(getTestBean("x"));
         }
         map.put("beans", moreBeans);
-        PugModel model = new PugModel(map);
+        RhinoPugModel model = new RhinoPugModel(map);
         run("bean_property_condition", false, model);
     }
 
@@ -427,11 +427,11 @@ public class CompilerTest {
     }
 
     private void run(String testName, boolean pretty) {
-        PugModel model = new PugModel(getModelMap(testName));
+        RhinoPugModel model = new RhinoPugModel(getModelMap(testName));
         run(testName, pretty, model);
     }
 
-    private void run(String testName, boolean pretty, PugModel model) {
+    private void run(String testName, boolean pretty, RhinoPugModel model) {
         Parser parser = null;
         ExpressionHandler expressionHandler = new PugConfiguration().getExpressionHandler();
         FileTemplateLoader loader = null;

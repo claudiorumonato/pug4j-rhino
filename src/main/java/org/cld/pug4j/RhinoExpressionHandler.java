@@ -1,4 +1,4 @@
-package de.neuland.pug4j.expression;
+package org.cld.pug4j;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -10,17 +10,18 @@ import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.NativeObject;
 
 import de.neuland.pug4j.exceptions.ExpressionException;
-import de.neuland.pug4j.model.PugModel;
+import de.neuland.pug4j.expression.AbstractExpressionHandler;
+import de.neuland.pug4j.expression.BooleanUtil;
 
 public class RhinoExpressionHandler extends AbstractExpressionHandler {
 
 	@Override
-	public Boolean evaluateBooleanExpression(String expr, PugModel model) throws ExpressionException {
+	public Boolean evaluateBooleanExpression(String expr, RhinoPugModel model) throws ExpressionException {
 		return BooleanUtil.convert(evaluateExpression(expr, model));
 	}
 	
 	@Override
-	public Object evaluateExpression(String expr, PugModel model) throws ExpressionException {
+	public Object evaluateExpression(String expr, RhinoPugModel model) throws ExpressionException {
 		Object res = null;
 		try {
 			saveLocalVariableName(expr, model);
@@ -40,7 +41,7 @@ public class RhinoExpressionHandler extends AbstractExpressionHandler {
 	}
 
 	@Override
-	public String evaluateStringExpression(String expr, PugModel model) throws ExpressionException {
+	public String evaluateStringExpression(String expr, RhinoPugModel model) throws ExpressionException {
 		Object result = evaluateExpression(expr, model);
 		return result == null ? "" : result.toString();
 	}

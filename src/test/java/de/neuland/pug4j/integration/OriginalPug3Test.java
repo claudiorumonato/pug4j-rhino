@@ -3,8 +3,9 @@ package de.neuland.pug4j.integration;
 import de.neuland.pug4j.ParameterizedTestCaseHelper;
 import de.neuland.pug4j.PugConfiguration;
 import de.neuland.pug4j.TestFileHelper;
-import de.neuland.pug4j.expression.RhinoExpressionHandler;
+
 import org.apache.commons.lang3.ArrayUtils;
+import org.cld.pug4j.RhinoExpressionHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

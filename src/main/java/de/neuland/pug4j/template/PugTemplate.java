@@ -7,9 +7,9 @@ import de.neuland.pug4j.compiler.Compiler;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
 import de.neuland.pug4j.lexer.token.Doctypes;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.node.Node;
 import org.apache.commons.lang3.StringUtils;
+import org.cld.pug4j.RhinoPugModel;
 
 public class PugTemplate {
 
@@ -21,7 +21,7 @@ public class PugTemplate {
 	private ExpressionHandler expressionHandler;
 	private String doctypeLine;
 
-	public void process(PugModel model, Writer writer) throws PugCompilerException {
+	public void process(RhinoPugModel model, Writer writer) throws PugCompilerException {
 		Compiler compiler = new Compiler(rootNode);
 		compiler.setPrettyPrint(prettyPrint);
 		compiler.setTemplate(this);

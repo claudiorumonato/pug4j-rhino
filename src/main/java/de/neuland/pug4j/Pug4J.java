@@ -7,8 +7,6 @@ import java.util.Map;
 
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.expression.RhinoExpressionHandler;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.FileTemplateLoader;
@@ -16,6 +14,8 @@ import de.neuland.pug4j.template.PugTemplate;
 import de.neuland.pug4j.template.ReaderTemplateLoader;
 import de.neuland.pug4j.template.TemplateLoader;
 import org.apache.commons.io.FilenameUtils;
+import org.cld.pug4j.RhinoPugModel;
+import org.cld.pug4j.RhinoExpressionHandler;
 
 public class Pug4J {
 
@@ -41,7 +41,7 @@ public class Pug4J {
 			PugCompilerException {
 		PugTemplate template = getTemplate(filename);
 		template.setPrettyPrint(pretty);
-		template.process(new PugModel(model), writer);
+		template.process(new RhinoPugModel(model), writer);
 	}
 
 	public static String render(PugTemplate template, Map<String, Object> model) throws PugCompilerException {
@@ -59,7 +59,7 @@ public class Pug4J {
 
 	public static void render(PugTemplate template, Map<String, Object> model, Writer writer, boolean pretty) throws PugCompilerException {
 		template.setPrettyPrint(pretty);
-		template.process(new PugModel(model), writer);
+		template.process(new RhinoPugModel(model), writer);
 	}
 
     public static String render(URL url, Map<String, Object> model) throws IOException, PugCompilerException {
@@ -119,7 +119,7 @@ public class Pug4J {
 	}
 
 	private static String templateToString(PugTemplate template, Map<String, Object> model) throws PugCompilerException {
-		PugModel pugModel = new PugModel(model);
+		RhinoPugModel pugModel = new RhinoPugModel(model);
 		StringWriter writer = new StringWriter();
 
 		template.process(pugModel, writer);

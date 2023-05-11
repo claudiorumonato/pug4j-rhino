@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 import de.neuland.pug4j.expression.ExpressionHandler;
 import org.apache.commons.text.StringEscapeUtils;
+import org.cld.pug4j.RhinoPugModel;
 
 import de.neuland.pug4j.exceptions.ExpressionException;
-import de.neuland.pug4j.model.PugModel;
 
 public class Utils {
 	public static Pattern interpolationPattern = Pattern.compile("(\\\\)?([#!])\\{");
@@ -71,7 +71,7 @@ public class Utils {
 		return result;
 	}
 
-	public static String interpolate(List<Object> prepared, PugModel model, ExpressionHandler expressionHandler) throws ExpressionException {
+	public static String interpolate(List<Object> prepared, RhinoPugModel model, ExpressionHandler expressionHandler) throws ExpressionException {
 
 		StringBuffer result = new StringBuffer();
 
@@ -99,7 +99,7 @@ public class Utils {
 		return StringEscapeUtils.escapeHtml4(string);
 	}
 
-	public static String interpolate(String string, PugModel model, boolean escape, ExpressionHandler expressionHandler) throws ExpressionException {
+	public static String interpolate(String string, RhinoPugModel model, boolean escape, ExpressionHandler expressionHandler) throws ExpressionException {
 		return interpolate(prepareInterpolate(string, escape), model,expressionHandler);
 	}
 }

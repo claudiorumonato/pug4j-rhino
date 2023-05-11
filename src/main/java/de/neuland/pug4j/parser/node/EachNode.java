@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections4.IteratorUtils;
+import org.cld.pug4j.RhinoPugModel;
 
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 
 public class EachNode extends Node {
@@ -19,7 +19,7 @@ public class EachNode extends Node {
 	private Node elseNode;
 
 	@Override
-	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
 		Object result;
 		try {
 			result = template.getExpressionHandler().evaluateExpression(getCode(), model);
@@ -35,7 +35,7 @@ public class EachNode extends Node {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void run(IndentWriter writer, PugModel model, Object result, PugTemplate template) {
+	private void run(IndentWriter writer, RhinoPugModel model, Object result, PugTemplate template) {
 		if (result instanceof Iterable<?>) {
 			runIterator(((Iterable<?>) result).iterator(), model, writer, template);
 		} else if (result.getClass().isArray()) {
@@ -46,7 +46,7 @@ public class EachNode extends Node {
 		}
 	}
 
-	private void runIterator(Iterator<?> iterator, PugModel model, IndentWriter writer, PugTemplate template) {
+	private void runIterator(Iterator<?> iterator, RhinoPugModel model, IndentWriter writer, PugTemplate template) {
 		int index = 0;
 
 		if (!iterator.hasNext()) {
@@ -62,7 +62,7 @@ public class EachNode extends Node {
 		}
 	}
 
-	private void runMap(Map<Object, Object> result, PugModel model, IndentWriter writer, PugTemplate template) {
+	private void runMap(Map<Object, Object> result, RhinoPugModel model, IndentWriter writer, PugTemplate template) {
 		Set<Object> keys = result.keySet();
 		if (keys.size() == 0) {
 			executeElseNode(model, writer, template);
@@ -75,7 +75,7 @@ public class EachNode extends Node {
 		}
 	}
 
-	private void executeElseNode(PugModel model, IndentWriter writer, PugTemplate template) {
+	private void executeElseNode(RhinoPugModel model, IndentWriter writer, PugTemplate template) {
 		if (elseNode != null) {
 			elseNode.execute(writer, model, template);
 		}

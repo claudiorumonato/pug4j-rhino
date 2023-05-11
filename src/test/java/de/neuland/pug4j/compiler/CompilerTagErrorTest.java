@@ -9,8 +9,9 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import org.apache.commons.io.FileUtils;
+import org.cld.pug4j.RhinoPugModel;
+import org.cld.pug4j.RhinoExpressionHandler;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -19,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 import de.neuland.pug4j.TestFileHelper;
 import de.neuland.pug4j.filter.MarkdownFilter;
 import de.neuland.pug4j.filter.PlainFilter;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.FileTemplateLoader;
@@ -36,11 +36,11 @@ public class CompilerTagErrorTest {
     }
 
     private void run(String testName, boolean pretty) throws IOException, URISyntaxException {
-        PugModel model = new PugModel(getModelMap(testName));
+        RhinoPugModel model = new RhinoPugModel(getModelMap(testName));
         run(testName, pretty, model);
     }
 
-    private void run(String testName, boolean pretty, PugModel model) throws IOException, URISyntaxException {
+    private void run(String testName, boolean pretty, RhinoPugModel model) throws IOException, URISyntaxException {
         Parser parser = null;
         FileTemplateLoader loader = new FileTemplateLoader(TestFileHelper.getCompilerErrorsResourcePath(""),
                     "jade");

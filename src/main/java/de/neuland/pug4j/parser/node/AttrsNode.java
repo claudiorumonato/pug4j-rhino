@@ -6,10 +6,10 @@ import com.google.gson.Gson;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
-import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.text.StringEscapeUtils;
+import org.cld.pug4j.RhinoPugModel;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class AttrsNode extends Node {
@@ -99,7 +99,7 @@ public abstract class AttrsNode extends Node {
         return codeNode != null;
     }
 
-	protected String visitAttributes(PugModel model, PugTemplate template) {
+	protected String visitAttributes(RhinoPugModel model, PugTemplate template) {
         LinkedList<Attr> newAttributes = new LinkedList<Attr>(attributes);
         if(attributeBlocks.size()>0){
             for (String attributeBlock : attributeBlocks) {
@@ -139,7 +139,7 @@ public abstract class AttrsNode extends Node {
         return sb.toString();
     }
 
-    protected Map<String,String> attrs(PugModel model, PugTemplate template, LinkedList<Attr> attrs) {
+    protected Map<String,String> attrs(RhinoPugModel model, PugTemplate template, LinkedList<Attr> attrs) {
         ArrayList<String> classes = new ArrayList<>();
         ArrayList<Boolean> classEscaping = new ArrayList<>();
         Map<String,String> newAttributes = new LinkedHashMap<>();
@@ -173,7 +173,7 @@ public abstract class AttrsNode extends Node {
         return finalAttributes;
     }
 
-    private void addAttributesToMap(Map<String, String> newAttributes, ArrayList<String> classes, ArrayList<Boolean> classEscaping, Attr attribute, PugModel model, PugTemplate template) throws ExpressionException {
+    private void addAttributesToMap(Map<String, String> newAttributes, ArrayList<String> classes, ArrayList<Boolean> classEscaping, Attr attribute, RhinoPugModel model, PugTemplate template) throws ExpressionException {
         String name = attribute.getName();
         boolean escaped = attribute.isEscaped();
 
@@ -315,7 +315,7 @@ public abstract class AttrsNode extends Node {
         }
     }
 
-    private Object evaluateExpression(ExpressionString attribute, PugModel model, ExpressionHandler expressionHandler) throws ExpressionException {
+    private Object evaluateExpression(ExpressionString attribute, RhinoPugModel model, ExpressionHandler expressionHandler) throws ExpressionException {
         String expression = attribute.getValue();
 	    Object result = expressionHandler.evaluateExpression(expression, model);
         if (result instanceof ExpressionString) {
