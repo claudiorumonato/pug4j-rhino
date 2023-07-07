@@ -80,34 +80,22 @@ See also the original [https://github.com/pugjs/pug#syntax](https://github.com/p
 
 ## Usage
 
-### via Maven
-
-Just add following dependency definitions to your `pom.xml`.
-
-```xml
-<dependency>
-  <groupId>de.neuland-bfi</groupId>
-  <artifactId>pug4j</artifactId>
-  <version>2.0.6</version>
-</dependency>
-```
-
 ### Build it yourself
 
 Clone this repository ...
 
 ```bash
-git clone https://github.com/neuland/pug4j.git
+git clone https://github.com/claudiorumonato/pug4j-rhino.git
 ```
 
 ... build it using `maven` ...
 
 ```bash
-cd pug4j
+cd pug4j-rhino
 mvn install
 ```
 
-... and use the `pug4j-2.x.x.jar` located in your target directory.
+... and use the `pug4j-rhino-2.x.x.jar` located in your target directory.
 
 <a name="simple-api"></a>
 ## Simple static API
@@ -266,26 +254,7 @@ The original pug implementation uses JavaScript for expression handling in `if`,
     each author in ["artur", "stefan", "michael","christoph"]
       h2= author
 
-### Jexl Expressionhandler (default)
-Pug4j uses [JEXL](https://commons.apache.org/proper/commons-jexl/) for parsing and executing these expressions.
-JEXL syntax and behavior is very similar to ECMAScript/JavaScript and so closer to the original pug.js implementation. JEXL runs also much faster than GraalVM.
-If your template don't relies too much on Javascript-Logic and gets almost everything from the model, this is a good choice.
-
-We are using a slightly modified JEXL version which to have better control of the exception handling. JEXL now runs in a semi-strict mode, where non existing values and properties silently evaluate to `null`/`false` where as invalid method calls lead to a `PugCompilerException`.
-<a name="reserved-words"></a>
-#### Reserved Words
-
-JEXL comes with the three builtin functions `new`, `size` and `empty`. For properties with this name the `.` notation does not work, but you can access them with `[]`.
-
-```
-- var book = {size: 540}
-book.size // does not work
-book["size"] // works
-```
-
-You can read more about this in the [JEXL documentation](https://commons.apache.org/proper/commons-jexl/reference/syntax.html#Language_Elements).
-
-<a name="graalvm"></a>
+<a name="nograalvm"></a>
 ### RhinoExpressionHandler (NEW! by CLD)
 If you want to use pure javascript expression handling, you can try out the new RhinoExpressionHandler. It supports native javascript expressions. You can configure it like this:
 
