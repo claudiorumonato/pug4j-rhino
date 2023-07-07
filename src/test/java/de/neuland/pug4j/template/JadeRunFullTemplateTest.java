@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.neuland.pug4j.helper.beans.IterableMap;
+import de.neuland.pug4j.model.PugModel;
 
-import org.cld.pug4j.RhinoPugModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +36,7 @@ public class JadeRunFullTemplateTest {
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("hello", "world");
         root.put("hallo", null);
-        RhinoPugModel model = new RhinoPugModel(root);
+        PugModel model = new PugModel(root);
 
         PugTemplate temp = cfg.getTemplate("fullrun");
 
@@ -61,7 +61,7 @@ public class JadeRunFullTemplateTest {
 
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("users", users);
-        RhinoPugModel model = new RhinoPugModel(root);
+        PugModel model = new PugModel(root);
 
         PugTemplate temp = cfg.getTemplate("each_loop");
 

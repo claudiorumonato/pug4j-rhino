@@ -1,4 +1,4 @@
-package org.cld.pug4j;
+package de.neuland.pug4j.model;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -7,30 +7,30 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import de.neuland.pug4j.model.AbstractPugModel;
-
-public class RhinoPugModel extends AbstractPugModel<Scriptable> {
+public class PugModel extends AbstractPugModel<Scriptable> {
 
 	private Context m_ctx;
+	private Scriptable m_model;
 	private Scriptable m_scope;
 	private final boolean m_ownContext;
 	
-	public RhinoPugModel(Map<String, Object> defaults) {
+	public PugModel(Map<String, Object> defaults) {
 		this(defaults, null);
 	}
 	
-	public RhinoPugModel(Map<String, Object> defaults, Context ctx) {
+	public PugModel(Map<String, Object> defaults, Context ctx) {
 		m_ctx = (m_ownContext = (ctx == null))
 				? Context.enter()
 				: ctx;
-		m_scope = m_ctx.initStandardObjects();
+		m_model = m_ctx.initStandardObjects();
+		m_scope = null;
 		initialize(defaults);
 	}
 
 	public Scriptable scope() {
 		return scopes.getLast();
 	}
-
+	
 	public Object parse(String expr, String name) {
 		Object res = null;
 		if (name == null)
@@ -44,9 +44,10 @@ public class RhinoPugModel extends AbstractPugModel<Scriptable> {
 	}
 	
 	protected Scriptable newScope() {
-		Scriptable scope = m_ctx.newObject(m_scope);
-		scope.put(LOCAL_VARS, scope, m_ctx.newObject(m_scope));
-		return scope;
+		Scriptable scope = m_ctx.newObject(m_model);
+		scope.put(LOCAL_VARS, scope, m_ctx.newObject(m_model));
+		scope.setParentScope(m_scope);
+		return m_scope = scope;
 	}
 	
 	public void clear(boolean dispose) {

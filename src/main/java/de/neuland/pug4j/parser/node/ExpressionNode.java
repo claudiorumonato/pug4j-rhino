@@ -2,14 +2,12 @@ package de.neuland.pug4j.parser.node;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.cld.pug4j.RhinoPugModel;
 
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
-
-import static org.cld.pug4j.RhinoPugModel.PUG4J_MODEL_PREFIX;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,7 +53,7 @@ public class ExpressionNode extends Node {
 	}
 
 	@Override
-	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
 
 			String value = getValue();
 			if (hasBlock() || value.trim().startsWith("}")) {
@@ -70,10 +68,10 @@ public class ExpressionNode extends Node {
 					}
 				}
 				if(hasBlock()) {
-					model.put(PUG4J_MODEL_PREFIX + "innerblock_" + nodeId, block);
-					model.put(PUG4J_MODEL_PREFIX + "template_" + nodeId, template);
-					model.put(PUG4J_MODEL_PREFIX + "model", model);
-					model.put(PUG4J_MODEL_PREFIX + "writer", writer);
+					model.put(PugModel.PUG4J_MODEL_PREFIX + "innerblock_" + nodeId, block);
+					model.put(PugModel.PUG4J_MODEL_PREFIX + "template_" + nodeId, template);
+					model.put(PugModel.PUG4J_MODEL_PREFIX + "model", model);
+					model.put(PugModel.PUG4J_MODEL_PREFIX + "writer", writer);
 					StringBuilder stringBuilder = new StringBuilder()
 							.append(value);
 					if (!value.trim().endsWith("{")) {
@@ -81,18 +79,18 @@ public class ExpressionNode extends Node {
 					}
 
 					bufferedExpressionString = stringBuilder
-							.append(PUG4J_MODEL_PREFIX)
+							.append(PugModel.PUG4J_MODEL_PREFIX)
 							.append("model.pushScope();")
-							.append(PUG4J_MODEL_PREFIX)
+							.append(PugModel.PUG4J_MODEL_PREFIX)
 							.append("innerblock_")
 							.append(nodeId)
 							.append(".execute(")
-							.append(PUG4J_MODEL_PREFIX)
+							.append(PugModel.PUG4J_MODEL_PREFIX)
 							.append("writer,")
-							.append(PUG4J_MODEL_PREFIX)
+							.append(PugModel.PUG4J_MODEL_PREFIX)
 							.append("model,pug4j__template_")
 							.append(nodeId).append(");")
-							.append(PUG4J_MODEL_PREFIX)
+							.append(PugModel.PUG4J_MODEL_PREFIX)
 							.append("model.popScope();")
 							.append("}")
 							.toString();

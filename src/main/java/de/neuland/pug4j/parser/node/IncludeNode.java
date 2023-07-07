@@ -2,11 +2,10 @@ package de.neuland.pug4j.parser.node;
 
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.PugCompilerException;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 
 import java.util.LinkedList;
-
-import org.cld.pug4j.RhinoPugModel;
 
 public class IncludeNode extends Node {
 
@@ -15,7 +14,7 @@ public class IncludeNode extends Node {
     private LinkedList<Node> filters;
 
     @Override
-    public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
+    public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
         //TODO:implement IncludeNode
     }
 

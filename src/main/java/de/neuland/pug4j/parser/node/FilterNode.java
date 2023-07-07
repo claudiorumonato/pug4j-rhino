@@ -9,16 +9,16 @@ import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
 import de.neuland.pug4j.filter.Filter;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 import org.apache.commons.lang3.StringUtils;
-import org.cld.pug4j.RhinoPugModel;
 
 public class FilterNode extends AttrsNode {
 
 	private LinkedList<IncludeFilterNode> filters = new LinkedList<>();
 
 	@Override
-	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
 		ArrayList<String> values = new ArrayList<String>();
 		LinkedList<Node> nodes = block.getNodes();
 		LinkedList<FilterNode> nestedFilterNodes = new LinkedList<>();
@@ -69,7 +69,7 @@ public class FilterNode extends AttrsNode {
 		writer.append(result);
 	}
 
-	private Map<String, Object> convertToFilterAttributes(PugTemplate template, RhinoPugModel model, LinkedList<Attr> attributes) {
+	private Map<String, Object> convertToFilterAttributes(PugTemplate template, PugModel model, LinkedList<Attr> attributes) {
 		Map evaluatedAttributes = new HashMap<String,Object>() ;
 		for (Attr attribute : attributes) {
 			if(attribute.getValue() instanceof ExpressionString) {

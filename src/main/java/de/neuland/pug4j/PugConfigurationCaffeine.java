@@ -6,10 +6,12 @@ import de.neuland.pug4j.Pug4J.Mode;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.exceptions.PugException;
 import de.neuland.pug4j.expression.ExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.filter.CDATAFilter;
 import de.neuland.pug4j.filter.CssFilter;
 import de.neuland.pug4j.filter.Filter;
 import de.neuland.pug4j.filter.JsFilter;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.FileTemplateLoader;
@@ -22,9 +24,6 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.cld.pug4j.RhinoPugModel;
-import org.cld.pug4j.RhinoExpressionHandler;
 
 public class PugConfigurationCaffeine {
 
@@ -75,7 +74,7 @@ public class PugConfigurationCaffeine {
     }
 
     public void renderTemplate(PugTemplate template, Map<String, Object> model, Writer writer) throws PugCompilerException {
-        RhinoPugModel pugModel = new RhinoPugModel(sharedVariables);
+        PugModel pugModel = new PugModel(sharedVariables);
         for (String filterName : filters.keySet()) {
             pugModel.addFilter(filterName, filters.get(filterName));
         }

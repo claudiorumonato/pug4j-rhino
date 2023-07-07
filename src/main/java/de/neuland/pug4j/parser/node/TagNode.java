@@ -3,10 +3,10 @@ package de.neuland.pug4j.parser.node;
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 import java.util.LinkedList;
 import org.apache.commons.lang3.ArrayUtils;
-import org.cld.pug4j.RhinoPugModel;
 
 public class TagNode extends AttrsNode {
     private Node textNode;
@@ -82,7 +82,7 @@ public class TagNode extends AttrsNode {
     }
 
     @Override
-    public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
+    public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
         writer.increment();
 
 
@@ -136,7 +136,7 @@ public class TagNode extends AttrsNode {
         writer.decrement();
     }
 
-    private void openTag(IndentWriter writer, RhinoPugModel model, PugTemplate template, boolean selfClosing) {
+    private void openTag(IndentWriter writer, PugModel model, PugTemplate template, boolean selfClosing) {
         writer.append("<")
             .append(bufferName(template, model))
             .append(visitAttributes(model, template));
@@ -152,7 +152,7 @@ public class TagNode extends AttrsNode {
     }
 
 
-    private String bufferName(PugTemplate template, RhinoPugModel model) {
+    private String bufferName(PugTemplate template, PugModel model) {
         if (isInterpolated()) {
             try {
                 return template.getExpressionHandler().evaluateStringExpression(name, model);

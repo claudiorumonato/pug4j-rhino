@@ -39,6 +39,8 @@ public abstract class AbstractPugModel<T> implements Map<String, Object> {
 	
 	abstract protected void scopeDel(T scope, String key);
 	
+	abstract public T scope();
+	
 	protected void initialize(Map<String, Object> defaults) {
 		pushScope();
 		if (defaults != null)
@@ -48,18 +50,6 @@ public abstract class AbstractPugModel<T> implements Map<String, Object> {
 	
 	protected Object scopeGet(T scope, String key, Object val) {
 		return !scopeHas(scope, key) ? val : scopeGet(scope, key);
-	}
-	
-	abstract public T scope();
-	
-	@Override
-	public boolean containsKey(Object key) {
-		for (Iterator<T> i = scopes.descendingIterator(); i.hasNext();) {
-			T scope = i.next();
-			if (scopeHas(scope, key.toString()))
-				return true;
-		}
-		return false;
 	}
 	
 	public boolean knowsKey(Object key) {
@@ -72,6 +62,16 @@ public abstract class AbstractPugModel<T> implements Map<String, Object> {
 		return false;
 	}
 
+	@Override
+	public boolean containsKey(Object key) {
+		for (Iterator<T> i = scopes.descendingIterator(); i.hasNext();) {
+			T scope = i.next();
+			if (scopeHas(scope, key.toString()))
+				return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public Object get(Object key) {
 		for (Iterator<T> i = scopes.descendingIterator(); i.hasNext();) {

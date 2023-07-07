@@ -3,13 +3,13 @@ package de.neuland.pug4j.expression;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cld.pug4j.RhinoPugModel;
+import de.neuland.pug4j.model.PugModel;
 
 public abstract class AbstractExpressionHandler implements ExpressionHandler {
 
     public static Pattern isLocalAssignment = Pattern.compile("^(var|let|const)[\\s]+([a-zA-Z0-9-_]+)[\\s]?={1}[\\s]?[^=]+$");
 
-    protected void saveLocalVariableName(String expression, RhinoPugModel model) {
+    protected void saveLocalVariableName(String expression, PugModel model) {
         Matcher matcher = isLocalAssignment.matcher(expression);
         if (matcher.matches()) {
             String var = matcher.group(2);

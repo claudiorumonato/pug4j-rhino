@@ -3,9 +3,8 @@ package de.neuland.pug4j.compiler;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.cld.pug4j.RhinoPugModel;
-
 import de.neuland.pug4j.exceptions.PugCompilerException;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.PugTemplate;
 
@@ -19,13 +18,13 @@ public class Compiler {
 		this.rootNode = rootNode;
 	}
 
-	public String compileToString(RhinoPugModel model) throws PugCompilerException {
+	public String compileToString(PugModel model) throws PugCompilerException {
 		StringWriter writer = new StringWriter();
 		compile(model, writer);
 		return writer.toString();
 	}
 
-	public void compile(RhinoPugModel model, Writer w) throws PugCompilerException {
+	public void compile(PugModel model, Writer w) throws PugCompilerException {
 		IndentWriter writer = new IndentWriter(w);
 		writer.setUseIndent(prettyPrint);
 		rootNode.execute(writer, model, template);

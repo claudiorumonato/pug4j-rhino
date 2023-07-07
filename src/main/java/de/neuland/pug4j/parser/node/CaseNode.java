@@ -3,12 +3,11 @@ package de.neuland.pug4j.parser.node;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cld.pug4j.RhinoPugModel;
-
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.template.PugTemplate;
 
 public class CaseNode extends Node {
@@ -16,12 +15,12 @@ public class CaseNode extends Node {
     private List<CaseConditionNode> caseConditionNodes = new LinkedList<CaseConditionNode>();
 	public static class When extends Node {
 		@Override
-		public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
+		public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
 			block.execute(writer, model, template);
 		}
 	}
 	@Override
-	public void execute(IndentWriter writer, RhinoPugModel model, PugTemplate template) throws PugCompilerException {
+	public void execute(IndentWriter writer, PugModel model, PugTemplate template) throws PugCompilerException {
 		try {
 			boolean skip = false;
 			for (Node when : block.getNodes()) {
@@ -40,7 +39,7 @@ public class CaseNode extends Node {
 		}
 	}
 
-	private Boolean checkCondition(RhinoPugModel model, Node caseConditionNode, ExpressionHandler expressionHandler) throws ExpressionException {
+	private Boolean checkCondition(PugModel model, Node caseConditionNode, ExpressionHandler expressionHandler) throws ExpressionException {
 		return expressionHandler.evaluateBooleanExpression(value + " == " + caseConditionNode.getValue(), model);
 	}
 

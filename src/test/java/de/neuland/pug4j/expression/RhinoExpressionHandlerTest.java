@@ -2,11 +2,10 @@ package de.neuland.pug4j.expression;
 
 import de.neuland.pug4j.compiler.IndentWriter;
 import de.neuland.pug4j.exceptions.ExpressionException;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.node.BlockNode;
 import de.neuland.pug4j.template.PugTemplate;
 
-import org.cld.pug4j.RhinoPugModel;
-import org.cld.pug4j.RhinoExpressionHandler;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,12 +20,12 @@ import static org.junit.Assert.*;
 public class RhinoExpressionHandlerTest {
 
     private RhinoExpressionHandler jsExpressionHandler;
-    private RhinoPugModel pugModel;
+    private PugModel pugModel;
 
     @Before
     public void setUp() throws Exception {
         jsExpressionHandler = new RhinoExpressionHandler();
-        pugModel = new RhinoPugModel(new HashMap<String, Object>());
+        pugModel = new PugModel(new HashMap<String, Object>());
     }
 
     @Test
@@ -154,7 +153,7 @@ public class RhinoExpressionHandlerTest {
         pugModel.put("pug4j__block", new BlockNode());
         pugModel.put("pug4j__writer", writer);
         pugModel.put("pug4j__template", new PugTemplate());
-        pugModel.put("pug4j__model", new RhinoPugModel(new HashMap<>()));
+        pugModel.put("pug4j__model", new PugModel(new HashMap<>()));
         Object o = jsExpressionHandler.evaluateExpression("pug4j__block.execute(pug4j__writer,pug4j__model,pug4j__template)", pugModel);
         @SuppressWarnings("unused")
 		Object what = pugModel.get("x");

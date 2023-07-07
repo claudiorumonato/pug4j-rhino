@@ -2,9 +2,9 @@ package de.neuland.pug4j.lexer;
 
 import de.neuland.pug4j.TestFileHelper;
 import de.neuland.pug4j.exceptions.PugLexerException;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
 import de.neuland.pug4j.template.FileTemplateLoader;
 
-import org.cld.pug4j.RhinoExpressionHandler;
 import org.junit.Test;
 
 import java.io.IOException;

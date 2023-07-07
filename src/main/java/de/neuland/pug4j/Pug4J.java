@@ -7,6 +7,8 @@ import java.util.Map;
 
 import de.neuland.pug4j.exceptions.PugCompilerException;
 import de.neuland.pug4j.expression.ExpressionHandler;
+import de.neuland.pug4j.expression.RhinoExpressionHandler;
+import de.neuland.pug4j.model.PugModel;
 import de.neuland.pug4j.parser.Parser;
 import de.neuland.pug4j.parser.node.Node;
 import de.neuland.pug4j.template.FileTemplateLoader;
@@ -14,8 +16,6 @@ import de.neuland.pug4j.template.PugTemplate;
 import de.neuland.pug4j.template.ReaderTemplateLoader;
 import de.neuland.pug4j.template.TemplateLoader;
 import org.apache.commons.io.FilenameUtils;
-import org.cld.pug4j.RhinoPugModel;
-import org.cld.pug4j.RhinoExpressionHandler;
 
 public class Pug4J {
 
@@ -41,7 +41,7 @@ public class Pug4J {
 			PugCompilerException {
 		PugTemplate template = getTemplate(filename);
 		template.setPrettyPrint(pretty);
-		template.process(new RhinoPugModel(model), writer);
+		template.process(new PugModel(model), writer);
 	}
 
 	public static String render(PugTemplate template, Map<String, Object> model) throws PugCompilerException {
@@ -59,7 +59,7 @@ public class Pug4J {
 
 	public static void render(PugTemplate template, Map<String, Object> model, Writer writer, boolean pretty) throws PugCompilerException {
 		template.setPrettyPrint(pretty);
-		template.process(new RhinoPugModel(model), writer);
+		template.process(new PugModel(model), writer);
 	}
 
     public static String render(URL url, Map<String, Object> model) throws IOException, PugCompilerException {
@@ -90,6 +90,7 @@ public class Pug4J {
 		FileTemplateLoader loader = new FileTemplateLoader(prefix,Charset.forName("UTF-8"));
 		return createTemplate(filePath, loader, new RhinoExpressionHandler());
 	}
+	
 	public static PugTemplate getTemplate(String filename, String extension) throws IOException {
 		if(filename==null){
 			throw new IllegalArgumentException("Filename can not be null");
@@ -104,10 +105,6 @@ public class Pug4J {
 		return createTemplate(name, new ReaderTemplateLoader(reader, name), new RhinoExpressionHandler());
 	}
 	
-	/*private static PugTemplate getTemplate(Reader reader, String name, String extension) throws IOException {
-		return createTemplate(name, new ReaderTemplateLoader(reader, name, extension), new RhinoExpressionHandler());
-	}*/
-
 	private static PugTemplate createTemplate(String filename, TemplateLoader loader, ExpressionHandler expressionHandler) throws IOException {
 		Parser parser = new Parser(filename, loader, expressionHandler);
 		Node root = parser.parse();
@@ -119,7 +116,7 @@ public class Pug4J {
 	}
 
 	private static String templateToString(PugTemplate template, Map<String, Object> model) throws PugCompilerException {
-		RhinoPugModel pugModel = new RhinoPugModel(model);
+		PugModel pugModel = new PugModel(model);
 		StringWriter writer = new StringWriter();
 
 		template.process(pugModel, writer);
